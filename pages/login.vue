@@ -3,7 +3,7 @@ const supabase = useSupabaseClient();
 const email = ref("");
 const password = ref("");
 const passwordConfirm = ref("");
-const isLoggingIn = ref(false);
+const isLoggingIn = ref(true);
 const passwordsMatch = computed(() => {
   return password.value == passwordConfirm.value;
 });
