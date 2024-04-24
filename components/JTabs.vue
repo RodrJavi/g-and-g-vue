@@ -1,10 +1,13 @@
 <script setup>
+import JLiftingTab from "~/components/JLiftingTab.vue";
+import JEatingTab from "~/components/JEatingTab.vue";
+
 const props = defineProps({
   items: Array,
 });
 
-const currentTab = ref(props.items[0].value);
-const currentItem = props.items.find((tab) => tab.value === currentTab.value);
+const currentTab = ref("");
+
 const updateCurrentTab = (value) => {
   currentTab.value = value;
 };
@@ -13,16 +16,18 @@ const updateCurrentTab = (value) => {
 <template>
   <div>
     <div>
-      <label v-for="tab in props.items" :key="tab.value">
+      <label v-for="tab in props.items" :key="tab">
         <input
           type="radio"
           v-model="currentTab"
-          :checked="tab.value === currentTab"
-          @change="updateCurrentTab(tab.value)" />
-        {{ tab.title }}
+          :checked="tab === currentTab"
+          @change="updateCurrentTab(tab)" />
+        {{ tab }}
       </label>
     </div>
-    <component :is="currentItem.content"></component>
-    {{ currentTab }}
+    <div v-if="currentTab == ''">Pick a tab to start!</div>
+    <div v-else>
+      {{ currentTab }}
+    </div>
   </div>
 </template>
